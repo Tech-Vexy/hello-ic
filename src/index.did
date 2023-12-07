@@ -1,7 +1,18 @@
-service: () -> {
-    addNote: (record {title:text; body:text}) -> (variant {Ok:record {id:text; title:text; body:text; createdAt:nat64; updatedAt:opt nat64}; Err:variant {NotFound:text; Invalidnote:text}});
-    deleteNote: (text) -> (variant {Ok:record {id:text; title:text; body:text; createdAt:nat64; updatedAt:opt nat64}; Err:variant {NotFound:text; Invalidnote:text}});
-    getNote: (text) -> (variant {Ok:record {id:text; title:text; body:text; createdAt:nat64; updatedAt:opt nat64}; Err:variant {NotFound:text; Invalidnote:text}}) query;
-    getNotes: () -> (variant {Ok:vec record {id:text; title:text; body:text; createdAt:nat64; updatedAt:opt nat64}; Err:variant {NotFound:text; Invalidnote:text}}) query;
-    updateNote: (text, record {title:text; body:text}) -> (variant {Ok:record {id:text; title:text; body:text; createdAt:nat64; updatedAt:opt nat64}; Err:variant {NotFound:text; Invalidnote:text}});
+type Error = variant { NotFound : text; Invalidnote : text };
+type Note = record {
+  id : text;
+  title : text;
+  body : text;
+  createdAt : nat64;
+  updatedAt : opt nat64;
+};
+type NotePayload = record { title : text; body : text };
+type _AzleResult = variant { Ok : Note; Err : Error };
+type _AzleResult_1 = variant { Ok : vec Note; Err : Error };
+service : () -> {
+  addNote : (NotePayload) -> (_AzleResult);
+  deleteNote : (text) -> (_AzleResult);
+  getNote : (text) -> (_AzleResult) query;
+  getNotes : () -> (_AzleResult_1) query;
+  updateNote : (text, NotePayload) -> (_AzleResult);
 }
