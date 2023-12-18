@@ -2,11 +2,11 @@
     "canisters": {
         "notebook": {
             "type": "custom",
-            "build": "npx azle notebook",
-            "root": "src",
-            "ts": "src/index.ts",
+            "main": "src/index.ts",
             "candid": "src/index.did",
-            "wasm": ".azle/notebook/notebook.wasm.gz"
+            "build": "npx azle notebook",
+            "wasm": ".azle/notebook/notebook.wasm",
+            "gzip": true
         }
     }
 }
